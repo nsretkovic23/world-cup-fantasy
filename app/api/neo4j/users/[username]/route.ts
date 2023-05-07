@@ -20,9 +20,9 @@ export async function GET(request: NextApiRequest, { params }:{params:any}) {
           return new Response(JSON.stringify({...user, id} satisfies User), {status:200});
       
         } else {
-          return new Response(JSON.stringify({message:"Not found"}), {status:404});
+          return new Response(JSON.stringify({errorMessage:"Username doesn't exist"}), {status:404});
         }
     } catch(error) {
-        return new Response(JSON.stringify({message:"Not found"}), {status:500});
+        return new Response(JSON.stringify({errorMessage:"Not found"}), {status:500});
     }
 }
