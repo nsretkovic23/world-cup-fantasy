@@ -28,12 +28,21 @@
     max-height: 30px;
 }
 
+.authContext {
+    display: flex;
+    flex-direction: row;
+}
+
 .authContext a {
     text-decoration: none;
     color: white;
+    margin-left: 5px;
 }
 
 .submitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 10px;
     height: 35px;
     width: 100px;
