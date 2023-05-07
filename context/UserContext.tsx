@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@/libs/interfaces";
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 export type UserContextType = {
   user: User | null;
@@ -13,10 +13,13 @@ export const UserContext = createContext<UserContextType | null>(null);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const loginUser = (user: User) => {
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
-    setUser(user);
-  };
+  const loginUser = useCallback(
+    (user: User) => {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      setUser(user);
+    },
+    [setUser]
+  );
 
   const logoutUser = () => {
     localStorage.removeItem("loggedInUser");
