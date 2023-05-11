@@ -1,25 +1,47 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { User } from "@/libs/interfaces";
 import { UserContext, UserContextType } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
 
 function Login() {
   const [showSignup, setShowSignup] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser } = useContext(UserContext) as UserContextType;
+  const { user, loginUser } = useContext(UserContext) as UserContextType;
+  const router = useRouter();
+  const fetchedUser = useTryLocalStorageAuthentication(false);
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (user) {
+      router.replace("/");
+    }
+  }, [user, router]);
+
+  useEffect(() => {
+    if (fetchedUser) {
+      loginUser(fetchedUser);
+      router.replace("/");
+    }
+  }, [router, loginUser, fetchedUser]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username.length < 4) {
       alert("Username needs to be at least 4 characters long");
       return;
     }
 
+    if (password.length < 5) {
+      alert("Password needs to be at least 5 characters long");
+      return;
+    }
+
     const userInfo = { username: username, password: password } as User;
 
-    fetch(`http://localhost:3000/api/neo4j/users/auth`, {
+    fetch(`http://localhost:3000/api/neo4j/users/${showSignup ? "" : "auth"}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userInfo),
@@ -32,44 +54,19 @@ function Login() {
         } else {
           // If everything is ok, login user(set context)
           loginUser(data as User);
+          router.push("/");
         }
       })
       .catch((error) => {
+        // Server/db error
         console.log(error);
         alert("Login failed: " + error);
       });
   };
 
-  const handleSignup = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const newUser: User = { username, password } satisfies User;
-
-    fetch("http://localhost:3000/api/neo4j/users/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.errorMessage) {
-          alert(data.errorMessage);
-        } else {
-          loginUser(data as User);
-        }
-      })
-      .catch((error) => {
-        console.error("Signup failed: ", error);
-      });
-  };
-
   return (
     <div className={styles.loginContainer}>
-      <form
-        onSubmit={showSignup ? handleSignup : handleLogin}
-        className={styles.formContainer}
-      >
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         {showSignup ? <h2>Sign Up</h2> : <h2>Sign In</h2>}
         <div className={styles.inputFieldContainer}>
           <label htmlFor="username">Username</label>
