@@ -1,6 +1,6 @@
-import { User } from '@/libs/interfaces';
+import { User } from '@/libs/interfaces/db-data-Interfaces';
 import { QueryResult } from 'neo4j-driver'
-import {session} from '@/utils/neo4j';
+import {session} from '@/libs/databases/neo4j';
 
 // Receive user's username and password from body and try to find a user in a database that matches these credentials
 export async function POST(request: Request) {

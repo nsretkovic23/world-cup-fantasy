@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "@/libs/interfaces";
+import { User } from "@/libs/interfaces/db-data-Interfaces";
 import { UserContext, UserContextType } from "@/context/UserContext";
 
 const useTryLocalStorageAuthentication = (redirectToLogin:boolean): User | null => {
