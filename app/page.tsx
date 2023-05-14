@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext, UserContextType } from "@/context/UserContext";
 import Link from "next/link";
-import useTryLocalStorageAuthentication from "./hooks/use-try-localStorage-Authentication";
+import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
 
 export default function Home() {
   const { user, loginUser } = useContext(UserContext) as UserContextType;

@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import { User } from "@/libs/interfaces";
 import { UserContext, UserContextType } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
-import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
+import useTryLocalStorageAuthentication from "../../hooks/use-try-localStorage-Authentication";
 
 function Login() {
   const [showSignup, setShowSignup] = useState(false);
