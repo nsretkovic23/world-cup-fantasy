@@ -1,4 +1,4 @@
-import UserProvider from "@/context/UserContext";
+import UserProvider from "@/context/user-context";
 import "./globals.css";
 import { Inter } from "next/font/google";
 

@@ -1,7 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { useEffect, useState, useContext, useCallback } from "react";
-import { UserContext, UserContextType } from "@/context/UserContext";
+import { UserContext, UserContextType } from "@/context/user-context";
 import Link from "next/link";
 import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
 
