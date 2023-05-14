@@ -1,8 +1,7 @@
 "use client";
 import styles from "./page.module.css";
-import { useEffect, useState, useContext, useCallback } from "react";
+import { useEffect, useContext } from "react";
 import { UserContext, UserContextType } from "@/context/user-context";
-import Link from "next/link";
 import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
 
 export default function Home() {
@@ -17,8 +16,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {user ? null : <Link href="/login">Login</Link>}
-      <h1>Test Auth: {user?.username}</h1>
+      {user ? <h1>Test Auth: {user.username}</h1> : null}
     </main>
   );
 }
