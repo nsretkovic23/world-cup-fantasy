@@ -21,10 +21,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     [setUser]
   );
 
-  const logoutUser = () => {
+  const logoutUser = useCallback (() => {
     localStorage.removeItem("loggedInUser");
-    setUser(null);
-  };
+    window.location.reload();
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, loginUser, logoutUser }}>
