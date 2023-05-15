@@ -1,5 +1,5 @@
-import { User } from "@/libs/interfaces/db-data-Interfaces";
-import { session } from "@/libs/databases/neo4j";
+import { User } from "@/lib/interfaces/db-data-Interfaces";
+import { session } from "@/lib/databases/neo4j";
 
 // Constraint for unique username: CREATE CONSTRAINT FOR (u:User) REQUIRE u.username IS UNIQUE
 // Creating a User (Sign Up)

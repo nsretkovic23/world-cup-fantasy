@@ -1,7 +1,7 @@
-import { User } from '@/libs/interfaces/db-data-Interfaces';
+import { User } from '@/lib/interfaces/db-data-Interfaces';
 import { QueryResult } from 'neo4j-driver'
 import { NextApiRequest, NextApiResponse } from 'next';
-import {session} from '@/libs/databases/neo4j';
+import {session} from '@/lib/databases/neo4j';
 
 
 export async function GET(request: NextApiRequest, { params }:{params:any}) {

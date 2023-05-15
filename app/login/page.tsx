@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import { User } from "@/libs/interfaces/db-data-Interfaces";
+import { User } from "@/lib/interfaces/db-data-Interfaces";
 import { UserContext, UserContextType } from "@/context/user-context";
 import { useRouter } from "next/navigation";
 import useTryLocalStorageAuthentication from "../../hooks/use-try-localStorage-Authentication";

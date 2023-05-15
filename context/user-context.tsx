@@ -1,5 +1,5 @@
 "use client";
-import { User } from "@/libs/interfaces/db-data-Interfaces";
+import { User } from "@/lib/interfaces/db-data-Interfaces";
 import { createContext, useCallback, useState } from "react";
 
 export type UserContextType = {
