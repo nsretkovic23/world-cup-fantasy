@@ -6,3 +6,100 @@ body {
     min-width: 100vh;
     background-color: #1A5F7A;
   }
+
+.pitch {
+  background-color: rgba(0, 128, 0, 0.63);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 720px;
+  max-width: 1200px;
+  border: 2px solid rgb(0, 119, 255);
+  box-shadow: 0px 0px 8px rgb(0, 119, 255);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.player-card {
+  background-color: #cecece73;
+  margin:20px;
+  margin-right: 80px;
+  height: 160px;
+  width: 160px;
+  border-radius: 5px;
+  border: 1px solid rgba(202, 204, 206, 0.925);
+  box-shadow: 0px 0px 3px rgb(230, 230, 230);
+  text-align: center;
+  font-weight: 500;
+  font-family: monospace;
+  flex-direction: column;
+}
+
+.player-name-container {
+  width: 100%;
+  flex-direction: column;
+}
+
+.player-card:hover {
+  box-shadow: 0px 0px 10px rgb(255, 196, 1);
+}
+
+.player-name {
+  font-weight: 800;
+  font-size: large;
+  color: goldenrod;
+}
+
+.player-rating-container {
+  width: 100%;
+  flex-direction: column;
+}
+
+.player-flag-club-container {
+  width: 100%;
+  height: 35px;
+  flex-direction: row;
+}
+
+.player-club {
+  padding: 10px;
+  margin: 10px;
+  color: rgb(82, 32, 218);
+  border-right: 1px solid rgba(255, 255, 255, 0.562);
+}
+
+.other-ratings {
+  flex-direction: row;
+  flex-wrap:wrap;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.671);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.671);
+}
+
+.overall-rating {
+  border-top: 1px solid rgba(255, 255, 255, 0.671);
+  margin: 5px;
+  font-weight: 700;
+  font-size: large;
+  color: rgb(7, 5, 3);
+}
+
+.other-ratings-row-container {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-and-grow {
+  display: flex;
+  flex-grow: 1;
+}
+
+.flex-all-centered {
+  align-items: center;
+  justify-content: center;
+}
