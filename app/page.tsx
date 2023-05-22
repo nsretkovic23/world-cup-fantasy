@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import { useEffect, useContext } from "react";
 import { UserContext, UserContextType } from "@/context/user-context";
 import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Authentication";
+import FootballPitch from "@/components/football-pitch/football-pitch";
 
 export default function Home() {
   const { user, loginUser } = useContext(UserContext) as UserContextType;
@@ -16,7 +17,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {user ? <h1>Test Auth: {user.username}</h1> : null}
+      {user ? <FootballPitch/> : null}
     </main>
   );
 }
