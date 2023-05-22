@@ -9,8 +9,22 @@ export interface User {
 export interface Player {
     name:string,
     nation:string,
+    nationIdentifier:string,
     club:string,
-    rating:number,
+    rating:Rating,
+    position: Position
+}
+
+export interface Position {
+    position : string
+}
+
+export interface Rating {
+    overall: number,
+    pace: number,
+    shooting: number,
+    passing: number,
+    defending: number
 }
 
 export interface NationalTeam {
