@@ -8,11 +8,18 @@ export interface User {
 
 export interface Player {
     name:string,
-    nation:string,
-    nationIdentifier:string,
+    nation:Nation
     club:string,
     rating:Rating,
-    position: Position
+    position: Position,
+    stats:Stats
+}
+
+export interface Stats {
+    pace:number,
+    shooting:number,
+    passing:number,
+    defending:number
 }
 
 export interface Position {
@@ -27,9 +34,10 @@ export interface Rating {
     defending: number
 }
 
-export interface NationalTeam {
+export interface Nation {
     name:string,
-    players:Player[]
+    nationIdentifier:string,
+    players?:Player[]
 }
 
 export interface UsersTeam {
