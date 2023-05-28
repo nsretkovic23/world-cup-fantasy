@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -24,7 +30,8 @@ body {
 }
 
 .player-card {
-  background-color: #cecece73;
+  cursor: pointer;
+  background-color: #594ee6;
   margin:20px;
   margin-right: 80px;
   height: 160px;
@@ -50,7 +57,7 @@ body {
 .player-name {
   font-weight: 800;
   font-size: large;
-  color: goldenrod;
+  color: rgb(250, 156, 14);
 }
 
 .player-rating-container {
@@ -67,8 +74,8 @@ body {
 .player-club {
   padding: 10px;
   margin: 10px;
-  color: rgb(82, 32, 218);
-  border-right: 1px solid rgba(255, 255, 255, 0.562);
+  color: rgb(0, 0, 0);
+  border-right: 1px solid rgb(255, 255, 255);
 }
 
 .other-ratings {
