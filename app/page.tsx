@@ -5,7 +5,8 @@ import useTryLocalStorageAuthentication from "../hooks/use-try-localStorage-Auth
 import FootballPitch from "@/app/(components)/pitch/football-pitch";
 import ViewPlayer from "./(components)/sidebars/view-player";
 import { Player } from "@/lib/interfaces/db-data-Interfaces";
-import AddNewPlayer from "./(components)/sidebars/add-new-player";
+import SearchPlayers from "./(components)/sidebars/search-players";
+import PlayerSearchFilterProvider from "@/context/player-search-filter-context";
 
 export default function Home() {
   const { user, loginUser } = useContext(UserContext) as UserContextType;
@@ -36,7 +37,9 @@ export default function Home() {
       {selectedPlayerForView ? (
         <ViewPlayer player={selectedPlayerForView} />
       ) : addPlayerFormActive ? (
-        <AddNewPlayer />
+        <PlayerSearchFilterProvider>
+          <SearchPlayers />
+        </PlayerSearchFilterProvider>
       ) : null}
     </main>
   );
