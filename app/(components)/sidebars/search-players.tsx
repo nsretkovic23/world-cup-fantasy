@@ -6,7 +6,7 @@ import { PlayerSearchFilterContext, PlayerSearchFilterContextType } from '@/cont
 import FoundPlayersList from './sections/searching-players-filters/found-players-list';
 
 // TODO: Provide position prop from somewhere
-function AddNewPlayer() {
+function SearchPlayers() {
 
   const {cost, nation, rating} = useContext(PlayerSearchFilterContext) as PlayerSearchFilterContextType;
 
@@ -18,4 +18,4 @@ function AddNewPlayer() {
   )
 }
 
-export default AddNewPlayer;
+export default SearchPlayers;
