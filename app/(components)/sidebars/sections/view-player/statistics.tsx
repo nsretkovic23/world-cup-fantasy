@@ -1,8 +1,9 @@
 import React from "react";
 import { Star } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import { Stats } from "@/lib/interfaces/db-data-Interfaces";
+
 
 function Statistics({ stats }: { stats: Stats }) {
   return (

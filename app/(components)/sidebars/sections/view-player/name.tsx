@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Divider } from "@mui/material";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 function Name({name}:{name:string}) {
   return (

@@ -1,6 +1,7 @@
 import { Star } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
+import RatingStars from '@mui/material/Rating';
 
 function getRatingToStarsRatio(rating: number) {
   if (rating < 60) return 1;
@@ -14,16 +15,19 @@ function getRatingToStarsRatio(rating: number) {
 
 function Rating({rating}:{rating:number}) {
   let stars = getRatingToStarsRatio(rating);
-  const starIcons = Array.from({ length: stars }).map((_, index) => (
-    <Star key={index} sx={{ color: "orange" }} />
-  ));
+
+  // Custom made rating
+  // const starIcons = Array.from({ length: stars }).map((_, index) => (
+  //   <Star key={index} sx={{ color: "orange" }} />
+  // ));
 
   return (
     <Box className={styles.sidebarSectionContainer}>
       <Divider flexItem className={styles.divider}>Rating</Divider>
-      <Box className={styles.ratingNumberAndStars}>
+      <Box className={styles.rowFlex}>
         <h2 className={styles.textReset}>{rating}</h2>
-        {starIcons}
+        {/*starIcons*/}
+        <RatingStars value={stars} readOnly />
       </Box>
     </Box>
   );
