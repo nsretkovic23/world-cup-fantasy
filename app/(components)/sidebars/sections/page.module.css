@@ -6,7 +6,7 @@
     background-color: rgba(255, 255, 255, 0.801);
 }
 
-.ratingNumberAndStars {
+.rowFlex {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -51,6 +51,10 @@
 .statsGroup {
     margin-top: 10px;
     display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .stat {
@@ -63,4 +67,36 @@
     box-shadow: 0px 0px 8px rgb(152, 162, 173);
     border-radius: 5%;
     margin-right: 10px;
+}
+
+.filter {
+    margin-right: 10px;
+}
+
+.playerListContainer {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    flex: 1;
+    border: 2px solid rgba(87, 86, 86, 0.692);
+    margin: 5px 5px 2px;
+}
+
+.playerInListItemContainer {
+    display: flex;
+    max-height: 60px;
+    flex: 1;
+    margin: 2px;
+    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(218, 218, 218, 0.842);
+}
+
+.playerInListItemName {
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    flex:1 1;
+    max-width: 200px;
 }

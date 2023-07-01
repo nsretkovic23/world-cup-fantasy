@@ -8,9 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    min-height: 100vh;
-    min-width: 100vh;
-    background-color: #1A5F7A;
+    background-color: #cde9f5;
   }
 
 .pitch {
@@ -43,6 +41,7 @@ body {
   font-weight: 500;
   font-family: monospace;
   flex-direction: column;
+  position: relative;
 }
 
 .player-name-container {
@@ -109,4 +108,8 @@ body {
 .flex-all-centered {
   align-items: center;
   justify-content: center;
+}
+
+.deleteIcon:hover {
+  color: red;
 }
