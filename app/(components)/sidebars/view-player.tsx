@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './page.module.css';
 import { Box, Divider } from '@mui/material';
-import Rating from './sections/rating';
-import Name from './sections/name';
-import ClubAndCountry from './sections/club-country';
-import Statistics from './sections/statistics';
+import Rating from './sections/view-player/rating';
+import Name from './sections/view-player/name';
+import ClubAndCountry from './sections/view-player/club-country';
+import Statistics from './sections/view-player/statistics';
 import { Player } from '@/lib/interfaces/db-data-Interfaces';
 
 function ViewPlayer({player}:{player:Player | null}) {
