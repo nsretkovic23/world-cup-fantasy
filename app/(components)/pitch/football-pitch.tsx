@@ -7,23 +7,23 @@ function FootballPitch({onPlayerCardClicked}:{onPlayerCardClicked:any}) {
   return (
     <div className={"pitch"}>
       <div>
-        <PlayerCard player={null} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
+        <PlayerCard player={null} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
       </div>
       <div>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
       </div>
       <div>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
       </div>
       <div>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
-        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onAddPlayerClicked={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
+        <PlayerCard player={players[0]} onPlayerCardClicked={onPlayerCardClicked} onPlayerRemoved={null}/>
       </div>
     </div>
   );
