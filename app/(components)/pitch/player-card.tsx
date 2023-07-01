@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import { Player } from "../../../lib/interfaces/db-data-Interfaces";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-function PlayerCard({ player, onPlayerCardClicked, onAddPlayerClicked }: { player: Player|null, onPlayerCardClicked:any, onAddPlayerClicked:any|null }) {
+function PlayerCard({ player, onPlayerCardClicked, onPlayerRemoved }: { player: Player|null, onPlayerCardClicked:any, onPlayerRemoved:any|null }) {
   
   if(!player) {
     return (
@@ -16,6 +17,7 @@ function PlayerCard({ player, onPlayerCardClicked, onAddPlayerClicked }: { playe
   
   return (
     <div onClick={() => onPlayerCardClicked(player)} className="flex-and-grow flex-all-centered player-card">
+      <DeleteForeverIcon  onClick={() => onPlayerRemoved(player)} sx={{position:"absolute", left:"157px", top:"-12px", color:"orange"}}></DeleteForeverIcon>
       <div className="flex-and-grow flex-all-centered player-name player-name-container">
         {player.name}
       </div>
