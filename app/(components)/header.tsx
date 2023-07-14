@@ -15,6 +15,7 @@ import {
 import { SportsSoccer, AccountCircleOutlined } from "@mui/icons-material";
 import { UserContext, UserContextType } from "@/context/user-context";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 function Header() {
@@ -69,6 +70,8 @@ function Header() {
           >
             World Cup Fantasy
           </Typography>
+
+          <Link href="/admin">Admin</Link>
 
           {/*xs logo and text setting*/}
           <SportsSoccer sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
