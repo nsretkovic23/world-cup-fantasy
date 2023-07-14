@@ -1,5 +1,5 @@
 export interface User {
-    id?:string,
+    id?:number,
     username:string,
     password:string,
     email?:string,
@@ -7,12 +7,13 @@ export interface User {
 }
 
 export interface Player {
+    id?:number,
     name:string,
-    nation:Nation
+    nation:Nation,
+    price?:number,
     club:string,
     rating:Rating,
     position: Position,
-    stats:Stats
 }
 
 export interface Stats {
@@ -41,6 +42,9 @@ export interface Nation {
 }
 
 export interface UsersTeam {
-    name:string,
-    players:Player[]
+    name?:string,
+    goalKeeper:Player,
+    defenders:Player[],
+    midfielders:Player[],
+    attackers:Player[]
 }
