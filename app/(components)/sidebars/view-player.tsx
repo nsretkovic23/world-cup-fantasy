@@ -17,7 +17,7 @@ function ViewPlayer({player}:{player:Player | null}) {
       <Name name="Lionel Messi"/>
       <ClubAndCountry club="Barcelona" nation={player.nation}/>
       <Rating rating={95}/>
-      <Statistics stats={player.stats}/>
+      <Statistics stats={player.rating}/>
     </Box>
   )
 }
