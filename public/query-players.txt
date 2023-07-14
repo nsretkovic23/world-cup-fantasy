@@ -1,0 +1,268 @@
+bing:
+List me 10 players that played for Netherlands at the world cup in qatar and the club that they are playing for. Do it in this format:
+["PlayerName", "Netherlands", "Player's club", "Position"]
+position should be either: "Goalkeeper", "Defender", "Midfielder", "Striker"
+List 1 goalkeeper, 3 defenders, 3 midfielders, 3 strikers
+
+second prompt: do it without mentioning club's country, and format each player into a new row
+
+[“Emi Martinez”, “Argentina”, “Aston Villa”, “Goalkeeper”]
+[“Geronimo Rulli”, “Argentina”, “Villarreal”, “Goalkeeper”]
+[“Marcos Acuna”, “Argentina”, “Sevilla”, “Defender”]
+[“Juan Foyth”, “Argentina”, “Villarreal”, “Defender”]
+[“Nicolas Tagliafico”, “Argentina”, “Lyon”, “Defender”]
+[“Cristian Romero”, “Argentina”, “Tottenham”, “Defender”]
+[“Nicolas Otamendi”, “Argentina”, “Benfica”, “Defender”]
+[“Nahuel Molina”, “Argentina”, “Atletico Madrid”, “Defender”]
+[“Gonzalo Montiel”, “Argentina”, “Sevilla”, “Defender”]
+[“Angel Di Maria”,“Argentina”,“Juventus”,“Midfielder”]
+[“Leandro Paredes”,“Argentina”,“Juventus”,“Midfielder”]
+[“Rodrigo De Paul”,“Argentina”,“Atletico Madrid”,“Midfielder”]
+[“Alexis Mac Allister”, “Argentina”, “Brighton”, “Midfielder”]
+[“Enzo Fernandez”, “Argentina”, “Benfica”, “Midfielder”]
+[“Julian Alvarez”, “Argentina”, “Manchester City”, “Striker”]
+[“Lionel Messi”, “Argentina”, “Paris Saint-Germain F.C.”, “Striker”]
+[“Paulo Dybala”, “Argentina”, “Juventus”, “Striker”]
+[“Lautaro Martinez”, “Argentina”, “Inter Milan”, “Striker”]
+
+CREATE
+(p1:Player {name: "Emi Martinez", club: "Aston Villa", price: 5}),
+(p2:Player {name: "Geronimo Rulli", club: "Villarreal", price: 5}),
+(p3:Player {name: "Marcos Acuna", club: "Sevilla", price: 5}),
+(p4:Player {name: "Juan Foyth", club: "Villarreal", price: 5}),
+(p5:Player {name: "Nicolas Tagliafico", club: "Lyon", price: 5}),
+(p6:Player {name: "Cristian Romero", club: "Tottenham", price: 5}),
+(p7:Player {name: "Nicolas Otamendi", club: "Benfica", price: 5}),
+(p8:Player {name: "Nahuel Molina", club: "Atletico Madrid", price: 5}),
+(p9:Player {name: "Gonzalo Montiel", club: "Sevilla", price: 5}),
+(p10:Player {name: "Angel Di Maria", club: "Juventus", price: 5}),
+(p11:Player {name: "Leandro Paredes", club: "Juventus", price: 5}),
+(p12:Player {name: "Rodrigo De Paul", club: "Atletico Madrid", price: 5}),
+(p13:Player {name: "Alexis Mac Allister", club: "Brighton", price: 5}),
+(p14:Player {name: "Enzo Fernandez", club: "Benfica", price: 5}),
+(p15:Player {name: "Julian Alvarez", club: "Manchester City", price: 5}),
+(p16:Player {name: "Lionel Messi", club: "Paris Saint-Germain F.C.", price: 5}),
+(p17:Player {name: "Paulo Dybala", club: "Juventus", price: 5}),
+(p18:Player {name: "Lautaro Martinez", club: "Inter Milan", price: 5})
+
+CREATE
+(p1:Player {name: "Marko Dmitrovic", club: "Sevilla", price:5}),
+(p2:Player {name: "Vanja Milinkovic-Savic", club: "Torino", price:5}),
+(p3:Player {name: "Predrag Rajkovic", club: "Mallorca", price:5}),
+(p4:Player {name: "Stefan Mitrovic", club: "Getafe", price:5}),
+(p5:Player {name: "Strahinja Pavlovic", club: "RB Salzburg", price:5}),
+(p6:Player {name: "Milos Veljkovic", club: "Werder Bremen", price:5}),
+(p7:Player {name: "Filip Mladenovic", club: "Legia Warsaw", price:5}),
+(p8:Player {name: "Strahinja Erakovic", club: "Red Star Belgrade", price:5}),
+(p9:Player {name: "Srdjan Babic", club: "Almeria", price:5}),
+(p10:Player {name: "Nikola Milenkovic", club: "Fiorentina", price:5}),
+(p11:Player {name: "Filip Kostic", club: "Juventus", price:5}),
+(p12:Player {name: "Nemanja Maksimovic", club: "Getafe", price:5}),
+(p13:Player {name: "Sasa Lukic", club: "Torino", price:5}),
+(p14:Player {name: "Andrija Zivkovic", club: "PAOK", price:5}),
+(p15:Player {name: "Darko Lazovic", club: "Verona", price:5}),
+(p16:Player {name: "Sergej Milinkovic-Savic", club: "Lazio", price:5}),
+(p17:Player {name: "Nemanja Gudelj", club: "Sevilla", price:5}),
+(p18:Player {name: "Marko Grujic", club: "Porto", price:5}),
+(p19:Player {name: "Uros Racic", club: "Braga", price:5}),
+(p20:Player {name: "Ivan Ilic", club: "Verona", price:5}),
+(p21:Player {name: "Aleksandar Mitrovic", club: "Fulham", price:5}),
+(p22:Player {name: "Filip Duricic", club: "Sampdoria", price:5}),
+(p23:Player {name: "Luka Jovic", club: "Fiorentina", price:5}),
+
+
+
+MATCH(n:Nation {name:"Germany"}), (gk:Position {position:"Goalkeeper"}), (def:Position {position:"Defender"}), (mid:Position {position:"Midfielder"}), (str:Position {position:"Striker"})
+CREATE
+(p1:Player {name: "Manuel Neuer", club: "Bayern Munich", price: 5}),
+(p2:Player {name: "Marc-André ter Stegen", club: "Barcelona", price: 5}),
+(p3:Player {name: "Matthias Ginter", club: "Freiburg", price: 5}),
+(p4:Player {name: "Thilo Kehrer", club: "West Ham", price: 5}),
+(p5:Player {name: "Lukas Klostermann", club: "Leipzig", price: 5}),
+(p6:Player {name: "Antonio Rüdiger", club: "Real Madrid", price: 5}),
+(p7:Player {name: "Nico Schlotterbeck", club: "Dortmund", price: 5}),
+(p8:Player {name: "Niklas Süle", club: "Dortmund", price: 5}),
+(p9:Player {name: "Joshua Kimmich", club: "Bayern Munich", price: 5}),
+(p10:Player {name: "Leon Goretzka", club: "Bayern Munich", price: 5}),
+(p11:Player {name: "Julian Brandt", club: "Dortmund", price: 5}),
+(p12:Player {name: "Ilkay Gündogan", club: "Man City", price: 5}),
+(p13:Player {name: "Jonas Hofmann", club: "Gladbach", price: 5}),
+(p14:Player {name: "Karim Adeyemi", club: "Dortmund", price: 5}),
+(p15:Player {name: "Youssoufa Moukoko", club: "Dortmund", price: 5}),
+(p16:Player {name: "Serge Gnabry", club: "Bayern Munich", price: 5}),
+(p17:Player {name: "Leroy Sane", club: "Bayern Munich", price: 5}),
+(p1)-[:PLAYS_FOR]->(n),
+(p2)-[:PLAYS_FOR]->(n),
+(p3)-[:PLAYS_FOR]->(n),
+(p4)-[:PLAYS_FOR]->(n),
+(p5)-[:PLAYS_FOR]->(n),
+(p6)-[:PLAYS_FOR]->(n),
+(p7)-[:PLAYS_FOR]->(n),
+(p8)-[:PLAYS_FOR]->(n),
+(p9)-[:PLAYS_FOR]->(n),
+(p10)-[:PLAYS_FOR]->(n),
+(p11)-[:PLAYS_FOR]->(n),
+(p12)-[:PLAYS_FOR]->(n),
+(p13)-[:PLAYS_FOR]->(n),
+(p14)-[:PLAYS_FOR]->(n),
+(p15)-[:PLAYS_FOR]->(n),
+(p16)-[:PLAYS_FOR]->(n),
+(p17)-[:PLAYS_FOR]->(n),
+(p1)-[:PLAYS_POSITION]->(gk),
+(p2)-[:PLAYS_POSITION]->(gk),
+(p3)-[:PLAYS_POSITION]->(def),
+(p4)-[:PLAYS_POSITION]->(def),
+(p5)-[:PLAYS_POSITION]->(def),
+(p6)-[:PLAYS_POSITION]->(def),
+(p7)-[:PLAYS_POSITION]->(def),
+(p8)-[:PLAYS_POSITION]->(def),
+(p9)-[:PLAYS_POSITION]->(mid),
+(p10)-[:PLAYS_POSITION]->(mid),
+(p11)-[:PLAYS_POSITION]->(mid),
+(p12)-[:PLAYS_POSITION]->(mid),
+(p13)-[:PLAYS_POSITION]->(mid),
+(p14)-[:PLAYS_POSITION]->(str),
+(p15)-[:PLAYS_POSITION]->(str),
+(p16)-[:PLAYS_POSITION]->(str),
+(p17)-[:PLAYS_POSITION]->(str)
+
+Final pattern: 1 GK, 3 DEF 3 MID 3 STR
+
+List me 10 players that played for France at the world cup in qatar and the club that they are playing for. Do it in this format:
+["PlayerName", "France", "Player's club", "Position"]
+position should be either: "Goalkeeper", "Defender", "Midfielder", "Striker"
+List 1 goalkeeper, 3 defenders, 3 midfielders, 3 strikers
+
+MATCH(n:Nation {name:"France"}), (gk:Position {position:"Goalkeeper"}), (def:Position {position:"Defender"}), (mid:Position {position:"Midfielder"}), (str:Position {position:"Striker"})
+CREATE
+(p1:Player {name: "Hugo Lloris", club: "Tottenham", price: 5}),
+(p2:Player {name: "Raphael Varane", club: "Manchester United", price: 5}),
+(p3:Player {name: "Dayot Upamecano", club: "Bayern Munich", price: 5}),
+(p4:Player {name: "Theo Hernandez", club: "AC Milan", price: 5}),
+(p5:Player {name: "Adrien Rabiot", club: "Juventus", price: 5}),
+(p6:Player {name: "Aurelin Tchouameni", club: "Monaco", price: 5}),
+(p7:Player {name: "Antoine Griezmann", club: "Barcelona", price: 5}),
+(p8:Player {name: "Kylian Mbappe", club: "Paris Saint-Germain", price: 5}),
+(p9:Player {name: "Ousmane Dembele", club: "Barcelona", price: 5}),
+(p10:Player {name: "Olivier Giroud", club: "AC Milan", price: 5}),
+(p1)-[:PLAYS_FOR]->(n),
+(p2)-[:PLAYS_FOR]->(n),
+(p3)-[:PLAYS_FOR]->(n),
+(p4)-[:PLAYS_FOR]->(n),
+(p5)-[:PLAYS_FOR]->(n),
+(p6)-[:PLAYS_FOR]->(n),
+(p7)-[:PLAYS_FOR]->(n),
+(p8)-[:PLAYS_FOR]->(n),
+(p9)-[:PLAYS_FOR]->(n),
+(p10)-[:PLAYS_FOR]->(n),
+(p1)-[:PLAYS_POSITION]->(gk),
+(p2)-[:PLAYS_POSITION]->(def),
+(p3)-[:PLAYS_POSITION]->(def),
+(p4)-[:PLAYS_POSITION]->(def),
+(p5)-[:PLAYS_POSITION]->(mid),
+(p6)-[:PLAYS_POSITION]->(mid),
+(p7)-[:PLAYS_POSITION]->(mid),
+(p8)-[:PLAYS_POSITION]->(str),
+(p9)-[:PLAYS_POSITION]->(str),
+(p10)-[:PLAYS_POSITION]->(str)
+
+
+----HOLANDIJA
+MATCH(n:Nation {name:"Netherlands"}), (gk:Position {position:"Goalkeeper"}), (def:Position {position:"Defender"}), (mid:Position {position:"Midfielder"}), (str:Position {position:"Striker"})
+CREATE
+(p1:Player {name: "Remko Pasveer", club: "Ajax", price: 5}),
+(p2:Player {name: "Virgil van Dijk", club: "Liverpool", price: 5}),
+(p3:Player {name: "Nathan Ake", club: "Manchester City", price: 5}),
+(p4:Player {name: "Stefan de Vrij", club: "Inter", price: 5}),
+(p5:Player {name: "Frenkie de Jong", club: "Barcelona", price: 5}),
+(p6:Player {name: "Davy Klassen", club: "Ajax", price: 5}),
+(p7:Player {name: "Marten de Roon", club: "Atalanta", price: 5}),
+(p8:Player {name: "Memphis Depay", club: "Barcelona", price: 5}),
+(p9:Player {name: "Cody Gakpo", club: "PSV Eindhoven", price: 5}),
+(p10:Player {name: "Wout Weghorst", club: "Besiktas", price: 5}),
+(p1)-[:PLAYS_FOR]->(n),
+(p2)-[:PLAYS_FOR]->(n),
+(p3)-[:PLAYS_FOR]->(n),
+(p4)-[:PLAYS_FOR]->(n),
+(p5)-[:PLAYS_FOR]->(n),
+(p6)-[:PLAYS_FOR]->(n),
+(p7)-[:PLAYS_FOR]->(n),
+(p8)-[:PLAYS_FOR]->(n),
+(p9)-[:PLAYS_FOR]->(n),
+(p10)-[:PLAYS_FOR]->(n),
+(p1)-[:PLAYS_POSITION]->(gk),
+(p2)-[:PLAYS_POSITION]->(def),
+(p3)-[:PLAYS_POSITION]->(def),
+(p4)-[:PLAYS_POSITION]->(def),
+(p5)-[:PLAYS_POSITION]->(mid),
+(p6)-[:PLAYS_POSITION]->(mid),
+(p7)-[:PLAYS_POSITION]->(mid),
+(p8)-[:PLAYS_POSITION]->(str),
+(p9)-[:PLAYS_POSITION]->(str),
+(p10)-[:PLAYS_POSITION]->(str)
+
+-----BRAZIL
+(p1:Player {name: "Alisson", club: "Liverpool", price: 5}),
+(p2:Player {name: "Marquinhos", club: "PSG", price: 5}),
+(p3:Player {name: "Eder Militao", club: "Real Madrid", price: 5}),
+(p4:Player {name: "Thiago Silva", club: "Chelsea", price: 5}),
+(p5:Player {name: "Fabinho", club: "Liverpool", price: 5}),
+(p6:Player {name: "Casemiro", club: "Manchester United", price: 5}),
+(p7:Player {name: "Lucas Paqueta", club: "West Ham", price: 5}),
+(p8:Player {name: "Neymar", club: "PSG", price: 5}),
+(p9:Player {name: "Vinicius Jr.", club: "Real Madrid", price: 5}),
+(p10:Player {name: "Gabriel Jesus", club: "Arsenal", price: 5})
+
+
+----PORTUGAL
+CREATE
+(p1:Player {name: "Rui Patricio", club: "Roma", price: 5}),
+(p2:Player {name: "Pepe", club: "Porto", price: 5}),
+(p3:Player {name: "Raphael Guerreiro", club: "Borussia Dortmund", price: 5}),
+(p4:Player {name: "Ruben Dias", club: "Manchester City", price: 5}),
+(p5:Player {name: "Joao Palhinha", club: "Fulham", price: 5}),
+(p6:Player {name: "Bruno Fernandes", club: "Manchester United", price: 5}),
+(p7:Player {name: "William Carvalho", club: "Real Betis", price: 5}),
+(p8:Player {name: "Bernardo Silva", club: "Manchester City", price: 5}),
+(p9:Player {name: "Cristiano Ronaldo", club: "Al Nassr", price: 5}),
+(p10:Player {name: "Rafael Leao", club: "AC Milan", price: 5})
+
+----SPANIJA
+CREATE
+(p1:Player {name: "Unai Simon", club: "Athletic Bilbao", price: 5}),
+(p2:Player {name: "Cesar Azpilicueta", club: "Chelsea", price: 5}),
+(p3:Player {name: "Dani Carvajal", club: "Real Madrid", price: 5}),
+(p4:Player {name: "Eric Garcia", club: "Barcelona", price: 5}),
+(p5:Player {name: "Sergio Busquets", club: "Barcelona", price: 5}),
+(p6:Player {name: "Rodri", club: "Manchester City", price: 5}),
+(p7:Player {name: "Koke", club: "Atletico Madrid", price: 5}),
+(p8:Player {name: "Ferran Torres", club: "Barcelona", price: 5}),
+(p9:Player {name: "Alvaro Morata", club: "Juventus (on loan from Atletico Madrid)", price: 5}),
+(p10:Player {name: "Ansu Fati", club: "Barcelona", price: 5})
+
+----ENGLESKA
+CREATE
+(p1:Player {name: "Jordan Pickford", club: "Everton", price: 5}),
+(p2:Player {name: "Trent Alexander-Arnold", club: "Liverpool", price: 5}),
+(p3:Player {name: "Harry Maguire", club: "Manchester United", price: 5}),
+(p4:Player {name: "John Stones", club: "Manchester City", price: 5}),
+(p5:Player {name: "Jordan Henderson", club: "Liverpool", price: 5}),
+(p6:Player {name: "Phil Foden", club: "Manchester City", price: 5}),
+(p7:Player {name: "Jack Grealish", club: "Manchester City", price: 5}),
+(p8:Player {name: "Harry Kane - Captain", club: "Tottenham Hotspur", price: 5}),
+(p9:Player {name: "Marcus Rashford", club: "Manchester United", price: 5}),
+(p10:Player {name: "Raheem Sterling", club: "Manchester City", price: 5})
+
+
+---- HRVATSKA
+CREATE
+(p1:Player {name: "Dominik Livakovic", club: "Dinamo Zagreb", price: 5}),
+(p2:Player {name: "Domagoj Vida", club: "AEK Athens", price: 5}),
+(p3:Player {name: "Dejan Lovren", club: "Zenit St Petersburg", price: 5}),
+(p4:Player {name: "Borna Barisic", club: "Rangers", price: 5}),
+(p5:Player {name: "Luka Modric", club: "Real Madrid", price: 5}),
+(p6:Player {name: "Mateo Kovacic", club: "Chelsea", price: 5}),
+(p7:Player {name: "Marcelo Brozovic", club: "Inter Milan", price: 5}),
+(p8:Player {name: "Ivan Perisic", club: "Tottenham Hotspur (on loan from Inter Milan)", price: 5}),
+(p9:Player {name: "Andrej Kramaric", club: "Hoffenheim", price: 5}),
+(p10:Player {name: "Bruno Petkovic", club: "Dinamo Zagreb", price: 5})

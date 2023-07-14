@@ -1,0 +1,24 @@
+By ID:
+    - Match (player:Player) WHERE ID(player)=57 return player
+Update:
+    - Match (player:Player) WHERE ID(player)=152 SET player.name="Harry Kane" return player
+
+Finding relation:
+    - Match ((player:Player) WHERE ID(player)=143), 
+        (player)-[:PLAYS_POSITION]->(position:Position) 
+        return position
+
+
+Transform query to get full player information, +NATION, +PRICE, +RATING:
+    - MATCH (p:Player)-[:BELONGS_TO]->(n:Nation)
+      MATCH (p)-[:HAS_POSITION]->(pos:Position)
+      WHERE p.id = {playerId} // use ID(p), this doesn't work
+      RETURN p, n, pos
+
+Add relation:
+    - MATCH (n:Player {name:"Enzo Fernandez"}), (m:Nation {name:"Argentina"})
+      CREATE (n) - [:PLAYS_FOR] -> (m)
+
+Delete:
+    - MATCH (n:Nation), (m:Player), (t:Team) detach DELETE n,m,t
+

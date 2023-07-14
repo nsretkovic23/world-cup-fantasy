@@ -1,0 +1,8 @@
+app/admin/page.tsx
+    - Make it container for admin functions (edit players, make special offers etc)
+    - Read nations from redis
+
+GLOBAL:
+    - Cache positions in redis
+    - Cache nations in redis
+    - Cache special offer player in redis
