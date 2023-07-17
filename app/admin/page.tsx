@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Search, DeleteForever, Edit, Add, Cancel } from "@mui/icons-material";
+import CreatePlayer from "./(create-player)/create-player";
 
 function AdminPanel() {
   const [nations, setNations] = useState<Nation[]>([]);
@@ -109,50 +110,7 @@ function AdminPanel() {
       });
   };
 
-  const drawPlayerCreationWindow = () => {
-    return (
-      <Box
-        sx={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: "20%",
-          bottom: 0,
-          margin: "0 auto",
-          height: "500px",
-          width: "500px",
-          zIndex: 999,
-          backgroundColor: "#cde9f5",
-          borderRadius: 5,
-          boxShadow: "0 0 7px 5px #888888",
-          padding: "5px",
-        }}
-      >
-        <IconButton
-          onClick={() => {
-            setPlayerCreationWindowFlag(false);
-          }}
-        >
-          <Cancel color="error"></Cancel>
-        </IconButton>
-        <Typography sx={{marginLeft:"8px"}}>Nation:{selectedNation}</Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField required id="name-req-field" label="Full name" variant="standard" />
-          <TextField required id="club-req-field" label="Club name" variant="standard" />
-          <TextField required id="price-req-field" label="Price" type="number" InputLabelProps={{shrink: true}} variant="standard" />
-          {/*Option field za poziciju, fieldovi za rating, izvuci u zasebnu komponentu*/}
-        </Box>
-      </Box>
-    );
-  };
-
+  
   return (
     <Box sx={{ margin: 3 }}>
       <Box sx={{ display: "flex", maxWidth: "700px" }}>
@@ -198,7 +156,7 @@ function AdminPanel() {
         <ul style={{ margin: 0, marginTop: 5, padding: 0 }}>{playerList}</ul>
       ) : null}
 
-      {isPlayerCreationWindowActive ? drawPlayerCreationWindow() : null}
+      <CreatePlayer isWindowActive={isPlayerCreationWindowActive} setIsWindowActive={setPlayerCreationWindowFlag} selectedNation={selectedNation} />
     </Box>
   );
 }
