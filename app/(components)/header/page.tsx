@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { SportsSoccer, AccountCircleOutlined } from "@mui/icons-material";
 import { UserContext, UserContextType } from "@/context/user-context";
-import { useRouter } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from "next/navigation";
 import Link from "next/link";
 
 
@@ -45,8 +45,9 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const segment = useSelectedLayoutSegments();
   // Do not render anything if user is not logged in (usually login page)
-  if (!user) return null;
+  if (segment.includes("login")) return null;
 
   return (
     <AppBar position="static">
@@ -71,7 +72,6 @@ function Header() {
             World Cup Fantasy
           </Typography>
 
-          <Link href="/admin">Admin</Link>
 
           {/*xs logo and text setting*/}
           <SportsSoccer sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -96,6 +96,8 @@ function Header() {
 
           {/*Adding space between logo and user picture/settings on md and higher*/}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
+
+          <Link href="/admin" style={{marginRight:"20px", textDecoration:'none', color:'white'}}>Admin Panel</Link>
 
           {/*User picture and user settings*/}
           <Box sx={{ flexGrow: 0 }}>
