@@ -1,6 +1,7 @@
-import { Player, User } from "@/lib/interfaces/db-data-Interfaces";
+import { Player, Position, User } from "@/lib/interfaces/db-data-Interfaces";
 import { session } from "@/lib/databases/neo4j";
-import { QueryResult } from "neo4j-driver";
+import { QueryResult, Record } from "neo4j-driver";
+
 
 export async function POST(request: Request) {
     let player = await request.json() as Player;
@@ -30,20 +31,62 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request:Request) {
-    // vodi racuna kad update-ujes playera, da mu proveris je l' mu se promenila pozicija od toga ce zavisi query
     let req = await request.json();
     const player:Player = req.player;
     const updatedPlayer:Player = req.updatedPlayer;
 
-    let match = `match (p:Player) where ID(player)=${player.id}`;
-    const attributes = `SET p.name = '${updatedPlayer.name}',
+    // TODO: Consider searching through nation
+    let match = `match 
+    (p:Player where ID(p)=${player.id})-[player_pos:PLAYS_POSITION]->(pos:Position), 
+    (pos)-[pos_player:POSITION_PLAYED_BY]->(p), 
+    (newPosition:Position {position:"${updatedPlayer.position.position}"})
+    SET p.name = '${updatedPlayer.name}',
     p.club = '${updatedPlayer.club}',
     p.price = ${updatedPlayer.price},
     p.rating = ${updatedPlayer.rating}`;
     
+    // const attributes = ` SET p.name = '${updatedPlayer.name}',
+    // p.club = '${updatedPlayer.club}',
+    // p.price = ${updatedPlayer.price},
+    // p.rating = ${updatedPlayer.rating} `;
+    
     // Since position is separate node, if position is changed, two-way relations between player and position node need to be disconnected
     // And new relations should be created
     let isPositionChanged = player.position.position !== updatedPlayer.position.position;
+    // console.log("Promenjena pozicija?" + isPositionChanged);
+    if(isPositionChanged) {
+        match += ` delete player_pos, pos_player 
+        create (p)-[:PLAYS_POSITION]->(newPosition), 
+        (newPosition)-[:POSITION_PLAYED_BY]->(p)`;
+    }
+    
+    const returnData = " return p, newPosition";
 
-    return new Response(JSON.stringify(req), {status:200});
+    try
+    {
+        let result:QueryResult = await session.run(
+            match + returnData
+        )
+            
+        if(result.records.length > 0) {
+            const record = result.records[0];
+            const returnedUpdatedPlayer = record.get('p').properties;
+            const id = record.get(0).identity.low;
+            const price = returnedUpdatedPlayer.price.low;
+            let rating = 0;
+            if(returnedUpdatedPlayer.rating) {
+                rating = returnedUpdatedPlayer.rating.low;
+            }
+            const position = record.get('newPosition').properties as Position;
+            console.log(position);
+            let p = {...returnedUpdatedPlayer, price, rating, id, position} as Player;
+            return new Response(JSON.stringify(p), {status:200});
+        }
+
+    } catch(err) {
+            return new Response(JSON.stringify({errorMessage:err}), {status:400});
+    }
+    
+
+
 }

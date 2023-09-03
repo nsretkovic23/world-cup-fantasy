@@ -8,10 +8,11 @@ interface CreateOrEditWindowProps {
   setIsWindowActive:any,
   selectedNation?:Nation,
   player?:Player,
-  setEditingPlayer?:any
+  setEditingPlayer?:any,
+  refetchPlayers:any
 }
 
-function CreateOrEditPlayerPopUp({isWindowActive, setIsWindowActive, selectedNation, player, setEditingPlayer} : CreateOrEditWindowProps) {
+function CreateOrEditPlayerPopUp({isWindowActive, setIsWindowActive, selectedNation, player, setEditingPlayer, refetchPlayers} : CreateOrEditWindowProps) {
 
   const [positions, setPositions] = useState<Position[]>([]);
   const [selectedPositionString, setSelectedPositionString] = useState<string>("");
@@ -122,7 +123,12 @@ function CreateOrEditPlayerPopUp({isWindowActive, setIsWindowActive, selectedNat
           alert(data.errorMessage);
         } else {
           console.log(data)
-          alert(`Updated player: ${data.name}`);
+          if(data.name === playerName) {
+            resetData();
+            refetchPlayers();
+            alert(`Updated player: ${data.name}`);
+            setIsWindowActive(false);
+          }
         }
       })
       .catch((error) => {
@@ -217,12 +223,12 @@ function CreateOrEditPlayerPopUp({isWindowActive, setIsWindowActive, selectedNat
           <TextField required id="name-req-field" label="Full name" variant="standard" onChange={(event:any) => setPlayerName(event.target.value as string)} defaultValue={player ? playerName : ""}/>
           <TextField required id="club-req-field" label="Club name" variant="standard" onChange={(event:any) => setClubName(event.target.value as string)} defaultValue={player ? clubName : ""}/>
           <TextField required id="price-req-field" label="Price (4-20)" type="number" inputProps={{min:4, max: 20}} InputLabelProps={{shrink: true}} variant="standard" onChange={(event:any) => setPlayerPrice(parseInt(event.target.value))} defaultValue={player ? player.price : playerPrice}/>
-          <TextField required id="price-req-field" label="Rating (50-99)" type="number" inputProps={{min:50, max: 99}} InputLabelProps={{shrink: true}} variant="standard" onChange={(event:any) => setPlayerOverallRating(parseInt(event.target.value))} defaultValue={player ? player.rating : playerOverallRating}/>
+          <TextField required id="rating-req-field" label="Rating (50-99)" type="number" inputProps={{min:50, max: 99}} InputLabelProps={{shrink: true}} variant="standard" onChange={(event:any) => setPlayerOverallRating(parseInt(event.target.value))} defaultValue={player ? player.rating : playerOverallRating}/>
           <FormControl fullWidth sx={{marginTop:1}}>
             <InputLabel>Select Position</InputLabel>
             <Select
               label={"Select Position"}
-              value={player ? player.position?.position : selectedPositionString}
+              defaultValue={player ? player.position?.position : selectedPositionString}
               onChange={handlePositionSelectionChange}
               sx={{ maxHeight: "150px", maxWidth:"260px", overflowY: "auto", marginRight: "10px" }}
               MenuProps={{

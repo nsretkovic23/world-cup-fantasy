@@ -66,7 +66,7 @@ function AdminPlayersDashboard() {
       <span style={{ width: "50px" }}>id:{player.id}</span>
       <span style={{ width: "50px" }}>Price:{player.price}</span>
       <span style={{ width: "200px" }}>{player.club}</span>
-      <span style={{ width: "200px" }}>{player.rating > 0 ? player.rating : `upd. rating!: 0`}</span>
+      <span style={{ width: "200px" }}>Rating: {player.rating > 0 ? player.rating : `upd. rating!: 0`}</span>
       <span>
         <Button
           variant="contained"
@@ -116,7 +116,7 @@ function AdminPlayersDashboard() {
 
   return (
     <Box sx={{ margin: 3 }}>
-      <CreateOrEditPlayerPopUp isWindowActive={isPlayerEditOrCreateWindowActive} setIsWindowActive={setPlayerEditOrCreateWindowFlag} selectedNation={nations.find((nat) => nat.name === selectedNation)} player={playerForEditing} setEditingPlayer={setPlayerForEditing}/>
+      <CreateOrEditPlayerPopUp isWindowActive={isPlayerEditOrCreateWindowActive} setIsWindowActive={setPlayerEditOrCreateWindowFlag} selectedNation={nations.find((nat) => nat.name === selectedNation)} player={playerForEditing} setEditingPlayer={setPlayerForEditing} refetchPlayers={fetchPlayers}/>
 
       <Box sx={{ display: "flex", maxWidth: "1200px" }}>
         <FormControl fullWidth>
