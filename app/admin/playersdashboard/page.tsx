@@ -11,14 +11,14 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Search, DeleteForever, Edit, Add } from "@mui/icons-material";
-import CreatePlayer from "../(components)/create-player";
+import CreateOrEditPlayerPopUp from "../(components)/create-player";
 
 function AdminPlayersDashboard() {
   const [nations, setNations] = useState<Nation[]>([]);
   const [selectedNation, setSelectedNation] = useState<string>("");
   const [players, setPlayers] = useState<Player[]>([]);
-  const [isPlayerCreationWindowActive, setPlayerCreationWindowFlag] =
-    useState<boolean>(false);
+  const [isPlayerEditOrCreateWindowActive, setPlayerEditOrCreateWindowFlag] = useState<boolean>(false);
+  const [playerForEditing, setPlayerForEditing] = useState<Player|undefined>(undefined);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/neo4j/nations/`)
@@ -66,10 +66,16 @@ function AdminPlayersDashboard() {
       <span style={{ width: "50px" }}>id:{player.id}</span>
       <span style={{ width: "50px" }}>Price:{player.price}</span>
       <span style={{ width: "200px" }}>{player.club}</span>
+      <span style={{ width: "200px" }}>{player.rating > 0 ? player.rating : `upd. rating!: 0`}</span>
       <span>
         <Button
           variant="contained"
-          onClick={() => {}}
+          onClick={() => {
+            if(!isPlayerEditOrCreateWindowActive){
+              setPlayerForEditing(player);
+              setPlayerEditOrCreateWindowFlag(true);
+            }
+          }}
           startIcon={<Edit />}
           sx={{ marginRight: 1 }}
         >
@@ -78,7 +84,9 @@ function AdminPlayersDashboard() {
         </Button>
         <Button
           variant="contained"
-          onClick={() => {}}
+          onClick={() => {
+            
+          }}   
           startIcon={<DeleteForever />}
         >
           {" "}
@@ -106,45 +114,10 @@ function AdminPlayersDashboard() {
       });
   };
 
-  const gk = {
-    position:"Goalkeeper"
-  } as Position
-
-  const df = {
-    position:"Defender"
-  } as Position
-
-  const md = {
-    position:"Midfielder"
-  } as Position
-
-  const st = {
-    position:"Striker"
-  } as Position
-
-  const updateNation = () => {
-    fetch(`http://localhost:3000/api/neo4j/positions/`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(st),
-    })
-      .then((response: Response) => response.json())
-      .then((data) => {
-        if (data.errorMessage) {
-          console.error(data.errorMessage);
-        } else {
-          console.log(data);
-        }
-      })
-      .catch((error) => {
-        // Server/db error
-        console.error(error);
-      });
-  }
-
-  
   return (
     <Box sx={{ margin: 3 }}>
+      <CreateOrEditPlayerPopUp isWindowActive={isPlayerEditOrCreateWindowActive} setIsWindowActive={setPlayerEditOrCreateWindowFlag} selectedNation={nations.find((nat) => nat.name === selectedNation)} player={playerForEditing} setEditingPlayer={setPlayerForEditing}/>
+
       <Box sx={{ display: "flex", maxWidth: "1200px" }}>
         <FormControl fullWidth>
           <InputLabel>Select Nation</InputLabel>
@@ -174,8 +147,8 @@ function AdminPlayersDashboard() {
           <Button
             variant="contained"
             onClick={() => {
-              if (!isPlayerCreationWindowActive)
-                setPlayerCreationWindowFlag(true);
+              if (!isPlayerEditOrCreateWindowActive)
+                setPlayerEditOrCreateWindowFlag(true);
             }}
             startIcon={<Add />}
             sx={{ textTransform: "none", minWidth: "150px" }}
@@ -184,20 +157,11 @@ function AdminPlayersDashboard() {
           </Button>
         ) : null}
 
-          <Button
-            variant="contained"
-            onClick={() => {updateNation()} }
-            startIcon={<Add />}
-            sx={{ textTransform: "none", minWidth: "150px", marginLeft:"120px" }}
-          >
-            Update-uj nacije i igrace
-          </Button>
       </Box>
       {playerList.length > 0 ? (
         <ul style={{ margin: 0, marginTop: 5, padding: 0 }}>{playerList}</ul>
       ) : null}
 
-      <CreatePlayer isWindowActive={isPlayerCreationWindowActive} setIsWindowActive={setPlayerCreationWindowFlag} selectedNation={nations.find((nat) => nat.name === selectedNation)} />
     </Box>
   );
 }
