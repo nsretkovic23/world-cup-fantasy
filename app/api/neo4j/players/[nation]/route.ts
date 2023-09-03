@@ -1,16 +1,15 @@
-import { Player, Nation } from '@/lib/interfaces/db-data-Interfaces';
+import { Player, Nation, Position } from '@/lib/interfaces/db-data-Interfaces';
 import { QueryResult } from 'neo4j-driver'
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 import {session} from '@/lib/databases/neo4j';
 
+// Get all players that play for provided nation, using HAS_PLAYER relation from nation towards players
+// This is more effective than searching through all the players because there are fewer nations in database
 export async function GET(request: NextApiRequest, { params }:{params:any})
 {
     try {
-    // TODO: Ovo invertovati, treba na osnovu nacije ici relacijom i naci sve igrace, 
-    // a ne kroz sve igrace traziti relaciju da igra za odgovarajucu naciju 
-    let result: QueryResult = await session.run(
-        "MATCH (players:Player)-[:PLAYS_FOR]->(nation:Nation {name: $nation}) RETURN players, id(players) AS playerId", 
-        { nation: params.nation });
+    let result: QueryResult = await session.run(`MATCH (nation:Nation {name:"${params.nation}"})-[:HAS_PLAYER]->(players:Player)-[:PLAYS_POSITION]->(position:Position)
+    RETURN players, id(players) as playerId, COLLECT(position) as positions`);
 
     if(result.records.length > 0) {
         const playersResult = result.records;
@@ -18,7 +17,13 @@ export async function GET(request: NextApiRequest, { params }:{params:any})
             const player = record.get('players').properties;
             const id = record.get(0).identity.low;
             const price = player.price.low;
-            return {...player, price, id} as Player;
+            let rating = 0;
+            if(player.rating)
+            {
+                rating = player.rating.low;
+            }
+            const position = record.get('positions').map((positionNode:any) => positionNode.properties)[0] as Position
+            return {...player, price, rating, id, position} as Player;
         });
 
         return new Response(JSON.stringify(players), {status:200});
