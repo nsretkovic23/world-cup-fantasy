@@ -9,10 +9,10 @@ import {
 } from "@mui/icons-material";
 
 const positionIconMapper = new Map();
-positionIconMapper.set("goalkeeper", <BackHandOutlined />);
-positionIconMapper.set("defender", <ShieldOutlined />);
-positionIconMapper.set("midfielder", <PsychologyOutlined />);
-positionIconMapper.set("attacker", <SportsSoccerOutlined />);
+positionIconMapper.set("Goalkeeper", <BackHandOutlined />);
+positionIconMapper.set("Defender", <ShieldOutlined />);
+positionIconMapper.set("Midfielder", <PsychologyOutlined />);
+positionIconMapper.set("Striker", <SportsSoccerOutlined />);
 
 function PositionFilter({ position }: { position: string }) {
   return (
@@ -23,7 +23,7 @@ function PositionFilter({ position }: { position: string }) {
       <Box className={styles.rowFlex} style={{marginTop:'15px', marginBottom:'15px'}}>
         <h2 className={styles.textReset}>{position}</h2>
         <div style={{marginLeft:'10px'}}/>
-        {positionIconMapper.get(position.toLowerCase())}
+        {positionIconMapper.get(position)}
       </Box>
     </Box>
   );

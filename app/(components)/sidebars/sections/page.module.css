@@ -80,6 +80,7 @@
     flex: 1;
     border: 2px solid rgba(87, 86, 86, 0.692);
     margin: 5px 5px 2px;
+    max-height: 62px;
 }
 
 .playerInListItemContainer {

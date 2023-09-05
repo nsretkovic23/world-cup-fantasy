@@ -38,7 +38,7 @@ export default function Home() {
         <ViewPlayer player={selectedPlayerForView} />
       ) : addPlayerFormActive ? (
         <PlayerSearchFilterProvider>
-          <SearchPlayers />
+          <SearchPlayers position={"Striker"}/>
         </PlayerSearchFilterProvider>
       ) : null}
     </main>

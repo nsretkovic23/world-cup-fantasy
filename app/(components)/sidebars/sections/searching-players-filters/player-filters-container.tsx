@@ -17,7 +17,7 @@ function PlayerFiltersContainer({ position }: { position: string }) {
 
   return (
     <Box className={styles.sidebarSectionContainer}>
-      <PositionFilter position="Goalkeeper" />
+      <PositionFilter position={position} />
       <Divider flexItem className={styles.divider}>
         Search for a {position}
       </Divider>

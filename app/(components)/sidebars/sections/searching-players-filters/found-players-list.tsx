@@ -6,38 +6,24 @@ import {
 } from "@/context/player-search-filter-context";
 import { Box, Divider } from "@mui/material";
 import FoundPlayer from "./found-player";
+import { Player } from "@/lib/interfaces/db-data-Interfaces";
 
 
-function FoundPlayersList() {
-  const { cost, nation, rating } = useContext(PlayerSearchFilterContext) as PlayerSearchFilterContextType;
-  
-  // TODO: Make a fetch with selected filters on every change
-  useEffect(() => {
-    // Fetch here, watch all 3 filters in the dependency list and whenever a filter changes, update player list
-    console.log(cost);
-    console.log(nation);
-    console.log(rating);
-  }, [cost, nation, rating]);
+function FoundPlayersList({players}:{players:Player[]}) {
+
+  if(players.length > 0)
+    console.log(players[0])
+
+  const playerList = players.map((player) => (
+    <FoundPlayer key={player.id} player={player}/>
+  ))
 
   return (
     <Box className={styles.sidebarSectionContainer} sx={{ flexGrow: 1, overflowY:'scroll'}}>
       <Divider flexItem className={styles.divider} sx={{ marginTop: 2, position:'sticky', zIndex:999, top:0, backgroundColor:'white' }}>
         Found players
       </Divider>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
-      <FoundPlayer/>
+      {playerList}
     </Box>
   );
 }
