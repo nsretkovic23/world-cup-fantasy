@@ -7,12 +7,12 @@ export interface User {
 }
 
 export interface Player {
-    id?:number,
+    id:number,
     name:string,
     nation:Nation,
-    price?:number,
+    price:number,
     club:string,
-    rating:Rating,
+    rating:number,
     position: Position,
 }
 
