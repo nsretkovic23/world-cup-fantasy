@@ -1,12 +1,10 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './page.module.css';
-import { Box, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 import PlayerFiltersContainer from './sections/searching-players-filters/player-filters-container';
 import { PlayerSearchFilterContext, PlayerSearchFilterContextType } from '@/context/player-search-filter-context';
 import FoundPlayersList from './sections/searching-players-filters/found-players-list';
-import FoundPlayer from './sections/searching-players-filters/found-player';
 import { Player } from '@/lib/interfaces/db-data-Interfaces';
-import { convertToObject } from 'typescript';
 import { menuItemLabelToNation } from '@/lib/filter-data';
 
 function determineMinAndMaxCost(cost:any) {
@@ -63,7 +61,6 @@ function determineMinAndMaxRating(rating:any) {
   return [minRating, maxRating];
 }
 
-// TODO: Provide position prop from somewhere
 function SearchPlayers({position, onPlayerAdded} : {position:string, onPlayerAdded:any}) {
 
   const {cost, nation, rating} = useContext(PlayerSearchFilterContext) as PlayerSearchFilterContextType;

@@ -1,16 +1,10 @@
-import React, { useContext, useEffect } from "react";
 import styles from "../page.module.css";
-import {
-  PlayerSearchFilterContext,
-  PlayerSearchFilterContextType,
-} from "@/context/player-search-filter-context";
 import { Box, Divider } from "@mui/material";
 import FoundPlayer from "./found-player";
 import { Player } from "@/lib/interfaces/db-data-Interfaces";
 
 
 function FoundPlayersList({players, onPlayerAdded}:{players:Player[], onPlayerAdded:any}) {
-
   if(players.length > 0)
     console.log(players[0])
 
