@@ -7,7 +7,7 @@ const useTryLocalStorageAuthentication = (redirectToLogin:boolean): User | null 
     const router = useRouter();
     const [userInfo, setUserInfo] = useState<User | null>(null);
     const [isAuthenticatedUser, setIsAuthenticatedUser] = useState<boolean>(false);
-    const {user} = useContext(UserContext) as UserContextType;
+    const {user, loginUser} = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
         if (!user && typeof window !== "undefined") {
@@ -62,13 +62,14 @@ const useTryLocalStorageAuthentication = (redirectToLogin:boolean): User | null 
         fetchUser(userInfo as User)
         .then(user => {
             if(user) {
+                loginUser(user);
                 setUserInfo(user);
                 setIsAuthenticatedUser(true);
             }
             else setUserInfo(null)
         })    
     } 
-    }, [user,userInfo,isAuthenticatedUser,fetchUser]);
+    }, [user,userInfo,isAuthenticatedUser,fetchUser, loginUser]);
   
     return userInfo;
   };
