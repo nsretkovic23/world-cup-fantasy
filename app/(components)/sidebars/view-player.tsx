@@ -14,10 +14,9 @@ function ViewPlayer({player}:{player:Player | null}) {
 
   return (
     <Box className={styles.sidebarContainer}>
-      <Name name="Lionel Messi"/>
-      <ClubAndCountry club="Barcelona" nation={player.nation}/>
-      <Rating rating={95}/>
-      <Statistics stats={player.rating}/>
+      <Name name={player.name}/>
+      <ClubAndCountry club={player.club} nation={player.nation}/>
+      <Rating rating={player.rating}/>
     </Box>
   )
 }

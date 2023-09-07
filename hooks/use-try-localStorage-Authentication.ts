@@ -32,7 +32,6 @@ const useTryLocalStorageAuthentication = (redirectToLogin:boolean): User | null 
 
         
         try {
-          console.log("Kolko puta se pozove FETCH")
           const response = await fetch(
               `http://localhost:3000/api/neo4j/users/auth/`,
               {

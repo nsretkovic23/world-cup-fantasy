@@ -9,13 +9,13 @@ import FoundPlayer from "./found-player";
 import { Player } from "@/lib/interfaces/db-data-Interfaces";
 
 
-function FoundPlayersList({players}:{players:Player[]}) {
+function FoundPlayersList({players, onPlayerAdded}:{players:Player[], onPlayerAdded:any}) {
 
   if(players.length > 0)
     console.log(players[0])
 
   const playerList = players.map((player) => (
-    <FoundPlayer key={player.id} player={player}/>
+    <FoundPlayer key={player.id} player={player} onPlayerAdded={onPlayerAdded}/>
   ))
 
   return (

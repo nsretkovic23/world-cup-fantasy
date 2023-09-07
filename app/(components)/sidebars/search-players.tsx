@@ -64,7 +64,7 @@ function determineMinAndMaxRating(rating:any) {
 }
 
 // TODO: Provide position prop from somewhere
-function SearchPlayers({position} : {position:string}) {
+function SearchPlayers({position, onPlayerAdded} : {position:string, onPlayerAdded:any}) {
 
   const {cost, nation, rating} = useContext(PlayerSearchFilterContext) as PlayerSearchFilterContextType;
   const [players, setPlayers] = useState<Player[]>([]);
@@ -92,7 +92,7 @@ function SearchPlayers({position} : {position:string}) {
   return (
     <Box className={styles.sidebarContainer}>
       <PlayerFiltersContainer position={position}/>
-      <FoundPlayersList players={players}/>
+      <FoundPlayersList players={players} onPlayerAdded={onPlayerAdded}/>
     </Box>
   )
 }

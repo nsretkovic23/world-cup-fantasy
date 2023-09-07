@@ -2,8 +2,14 @@ export interface User {
     id?:number,
     username:string,
     password:string,
-    email?:string,
-    team?: UsersTeam
+    team: Team
+}
+
+export interface Team {
+    goalkeeper:Player[],
+    defenders:Player[],
+    midfielders:Player[],
+    strikers:Player[]
 }
 
 export interface Player {
@@ -39,12 +45,4 @@ export interface Nation {
     name:string,
     nationIdentifier:string,
     players?:Player[]
-}
-
-export interface UsersTeam {
-    name?:string,
-    goalKeeper:Player,
-    defenders:Player[],
-    midfielders:Player[],
-    attackers:Player[]
 }

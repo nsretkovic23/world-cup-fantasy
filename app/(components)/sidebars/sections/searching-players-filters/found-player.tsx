@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AddCircle, AttachMoney } from "@mui/icons-material";
 import { Player } from "@/lib/interfaces/db-data-Interfaces";
 
-function FoundPlayer({player}:{player:Player}) {
+function FoundPlayer({player, onPlayerAdded}:{player:Player, onPlayerAdded:any}) {
   const flagSrc = `https://flagsapi.com/${player.nation.nationIdentifier}/shiny/64.png`;
 
   return (
@@ -33,6 +33,7 @@ function FoundPlayer({player}:{player:Player}) {
           disabled={false}
           sx={{ textTransform: "none" }}
           startIcon={<AddCircle />}
+          onClick = {()=> onPlayerAdded(player)}
         >
           Add
         </Button>
