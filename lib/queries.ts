@@ -1,9 +1,9 @@
 // Gets every player that user selected for its team
 export const userTeamQuery = `
-(u)-[:CHOSE_ST]->(st:Player),
-(u)-[:CHOSE_MID]->(mid:Player),
-(u)-[:CHOSE_DEF]->(def:Player),
-(u)-[:CHOSE_GK]->(gk:Player)
+OPTIONAL MATCH (u)-[:CHOSE_ST]->(st:Player)
+OPTIONAL MATCH (u)-[:CHOSE_MID]->(mid:Player)
+OPTIONAL MATCH (u)-[:CHOSE_DEF]->(def:Player)
+OPTIONAL MATCH (u)-[:CHOSE_GK]->(gk:Player)
 OPTIONAL MATCH (st)-[:PLAYS_FOR]->(strikerNation:Nation)
 OPTIONAL MATCH (st)-[:PLAYS_POSITION]->(strikerPosition:Position)
 OPTIONAL MATCH (mid)-[:PLAYS_FOR]->(midNation:Nation)

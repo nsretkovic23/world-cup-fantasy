@@ -47,7 +47,6 @@ export async function GET(request: NextApiRequest, {params}:{params:any}) {
     SKIP ${skip}
     LIMIT 10`;
 
-    console.log(query);
     try{
         let result: QueryResult = await session.run(query);
 
@@ -55,7 +54,6 @@ export async function GET(request: NextApiRequest, {params}:{params:any}) {
             const playersResult = result.records;
             const players:Player[] = playersResult.map(record => {
             const player = record.get('p').properties;
-            console.log(player);
             const id = record.get(0).identity.low;
             const price = player.price.low;
             let rating = 1;
