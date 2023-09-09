@@ -69,7 +69,7 @@ function SearchPlayers({position, onPlayerAdded} : {position:string, onPlayerAdd
   useEffect(() => {
     let [minCost, maxCost] = determineMinAndMaxCost(cost) as Number[];
     let [minRating, maxRating] = determineMinAndMaxRating(rating) as Number[];
-    console.log(`COST: ${minCost}/${maxCost} --- RATING: ${minRating}/${maxRating} --- POS: ${position} --- NAT: ${menuItemLabelToNation.get(nation)}`);
+    //console.log(`COST: ${minCost}/${maxCost} --- RATING: ${minRating}/${maxRating} --- POS: ${position} --- NAT: ${menuItemLabelToNation.get(nation)}`);
 
     const nationName = nation === "AllNations" ? "AllNations" : menuItemLabelToNation.get(nation);
     fetch(`http://localhost:3000/api/neo4j/players/${position}/${nationName}/${minCost}/${maxCost}/${minRating}/${maxRating}`)

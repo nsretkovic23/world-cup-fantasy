@@ -44,8 +44,7 @@ export async function GET(request: NextApiRequest, {params}:{params:any}) {
     query += `
     RETURN p, pos, COLLECT(n) as nations
     ORDER BY p.price desc
-    SKIP ${skip}
-    LIMIT 10`;
+    SKIP ${skip}`;
 
     try{
         let result: QueryResult = await session.run(query);

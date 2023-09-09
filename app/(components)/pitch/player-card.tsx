@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Player } from "../../../lib/interfaces/db-data-Interfaces";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-function PlayerCard({ player, position, onPlayerCardClicked, onPlayerRemoved }: { player: Player|null, position:string, onPlayerCardClicked:any, onPlayerRemoved:any|null }) {
+function PlayerCard({ player, position, onPlayerCardClicked, onPlayerRemoved }: { player: Player|null, position:string, onPlayerCardClicked:any, onPlayerRemoved:any }) {
   
   if(!player) {
     return (
