@@ -22,13 +22,6 @@ export interface Player {
     position: Position,
 }
 
-export interface Stats {
-    pace:number,
-    shooting:number,
-    passing:number,
-    defending:number
-}
-
 export interface Position {
     position : string
 }
@@ -45,4 +38,12 @@ export interface Nation {
     name:string,
     nationIdentifier:string,
     players?:Player[]
+}
+
+export interface Tournament {
+    name: string,
+    quarterfinals:string,
+    semifinals:string,
+    final:string,
+    ttl:number
 }

@@ -1,6 +1,6 @@
 "use client";
-import { AppBar } from "@mui/material";
-import React, { useContext, useMemo } from "react";
+import { AppBar, Button } from "@mui/material";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Box,
   Toolbar,
@@ -12,18 +12,20 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
-import { SportsSoccer, AccountCircleOutlined } from "@mui/icons-material";
+import { SportsSoccer, AccountCircleOutlined, EmojiEvents } from "@mui/icons-material";
 import { UserContext, UserContextType } from "@/context/user-context";
-import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from "next/navigation";
+import { useRouter, useSelectedLayoutSegments } from "next/navigation";
 import Link from "next/link";
+import io from 'socket.io-client';
 
 
 function Header() {
   const router = useRouter();
   const { user, logoutUser } = useContext(UserContext) as UserContextType;
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(
     null
   );
+  const [tournamentAvailable, setTournamentAvailable] = useState<boolean>(false);
 
   const settingsMap = useMemo(() => {
     const map = new Map();
@@ -37,6 +39,36 @@ function Header() {
     });
     return map;
   }, [router, user, logoutUser]);
+
+  // Showing button for playing tournaments when tournament gets created
+  useEffect(() => {
+      const socket = io('http://localhost:8080', {
+        transports: ['websocket'],
+        withCredentials: true
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected to server');
+      });
+
+      // Subscribe to the Redis channel
+      socket.on('message', (message) => {
+          const msg = JSON.parse(message);
+          if(msg.type === "TournamentCreated") {
+
+            console.log("New tournament available...enabling button");
+            setTournamentAvailable(true);
+          } else if(msg.type === "TournamentExpired") {
+
+            console.log("Tournament expired, disabling button");
+            setTournamentAvailable(false);
+          }
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+  }, [])
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -58,7 +90,6 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -69,7 +100,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            World Cup Fantasy
+            <Link href="/" style={{textDecoration:'none', color:'white'}}>World Cup Fantasy</Link>
           </Typography>
 
 
@@ -79,7 +110,6 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -91,12 +121,14 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            WCF
+            <Link href="/" style={{textDecoration:'none', color:'white'}}>WCF</Link>
           </Typography>
 
           {/*Adding space between logo and user picture/settings on md and higher*/}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}></Box>
+          <Button variant="contained" sx={{marginRight:50, alignSelf:'center'}} color="error" startIcon={<EmojiEvents/>}>
+            <Link href="/admin" style={{textDecoration:'none', color:'white'}}>Tournament</Link>
+          </Button>
           <Link href="/admin" style={{marginRight:"20px", textDecoration:'none', color:'white'}}>Admin Panel</Link>
 
           {/*User picture and user settings*/}

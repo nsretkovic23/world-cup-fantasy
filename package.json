@@ -16,6 +16,7 @@
     "@types/node": "18.16.3",
     "@types/react": "18.2.4",
     "@types/react-dom": "18.2.3",
+    "bufferutil": "^4.0.7",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "ioredis": "^5.3.2",
@@ -23,7 +24,11 @@
     "next": "13.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
+    "typescript": "5.0.4",
+    "utf-8-validate": "^5.0.10",
+    "ws": "^8.14.1"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0"
