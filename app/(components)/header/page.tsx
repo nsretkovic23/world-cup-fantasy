@@ -26,6 +26,7 @@ function Header() {
     null
   );
   const [tournamentAvailable, setTournamentAvailable] = useState<boolean>(false);
+  const [tournamentName, setTournamentName] = useState<string>("nicoo");
 
   const settingsMap = useMemo(() => {
     const map = new Map();
@@ -57,10 +58,12 @@ function Header() {
           if(msg.type === "TournamentCreated") {
 
             console.log("New tournament available...enabling button");
+            setTournamentName(msg.name);
             setTournamentAvailable(true);
           } else if(msg.type === "TournamentExpired") {
-
+            
             console.log("Tournament expired, disabling button");
+            setTournamentName("");
             setTournamentAvailable(false);
           }
       });
@@ -89,7 +92,9 @@ function Header() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={Link}
+            href="/"
+            passHref
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -100,16 +105,17 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            <Link href="/" style={{textDecoration:'none', color:'white'}}>World Cup Fantasy</Link>
+            World Cup Fantasy
           </Typography>
-
 
           {/*xs logo and text setting*/}
           <SportsSoccer sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
+            component={Link}
+            href="/"
+            passHref
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -121,14 +127,18 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            <Link href="/" style={{textDecoration:'none', color:'white'}}>WCF</Link>
+            WCF
           </Typography>
 
           {/*Adding space between logo and user picture/settings on md and higher*/}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}></Box>
-          <Button variant="contained" sx={{marginRight:50, alignSelf:'center'}} color="error" startIcon={<EmojiEvents/>}>
-            <Link href="/admin" style={{textDecoration:'none', color:'white'}}>Tournament</Link>
-          </Button>
+            {tournamentAvailable ? 
+            <Button variant="contained" sx={{marginRight:50, alignSelf:'center'}} color="error" startIcon={<EmojiEvents/>}>
+              <Link href={`/tournament/${tournamentName}`} style={{textDecoration:'none', color:'white'}}>Tournament</Link>
+            </Button> 
+          : null}
+          
+          
           <Link href="/admin" style={{marginRight:"20px", textDecoration:'none', color:'white'}}>Admin Panel</Link>
 
           {/*User picture and user settings*/}

@@ -45,5 +45,6 @@ export interface Tournament {
     quarterfinals:string,
     semifinals:string,
     final:string,
-    ttl:number
+    ttl:number,
+    difficulty:number
 }
