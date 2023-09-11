@@ -3,6 +3,7 @@ import { UserContext, UserContextType } from "@/context/user-context";
 import { Team, Tournament } from "@/lib/interfaces/db-data-Interfaces";
 import { EmojiEvents, SportsSoccer } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
 const emptyTournament = {
@@ -14,19 +15,23 @@ const emptyTournament = {
   difficulty:2
 } satisfies Tournament;
 
-const getDifficulty = (diff:number) => {
-  if(diff < 1) return "Easy";
+const getDifficulty = (diff:any) : string => {
+  const diffNum = parseInt(diff);
+
+  if(diffNum < 1) return "Easy";
+  if(diffNum > 3) return "Hard";
   
-  switch(diff) {
+  let diffString = "Easy";
+  switch(diffNum) {
     case 1:
-      return "Easy";
+      diffString = "Easy"; break;
     case 2:
-      return "Medium";
+      diffString = "Medium"; break;
     case 3:
-      return "Hard";
+      diffString = "Hard"; break;
   }
 
-  if(diff > 3) return "Hard";
+  return diffString;
 }
 
 const getTeamOverallRating = (team:Team|undefined) => {
@@ -41,26 +46,30 @@ const getTeamOverallRating = (team:Team|undefined) => {
 }
 
 function Tournament({ params }: { params: { name: string } }) {
+  const router = useRouter();
   const [tournament, setTournament] = useState<Tournament>(emptyTournament);
   const { user } = useContext(UserContext) as UserContextType;
   const [tournamentResults, setTournamentResults] = useState<Array<JSX.Element>>([]);
   const [tournamentOutcome, setTournamentOutcome] = useState<[boolean, string]>([false, ""]);
   
   useEffect(() => {
-    console.log("poziva se useeffect")
-    // fetch(`http://localhost:3000/api/tournament/${params.name}`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.errorMessage) {
-    //       console.error(data.errorMessage);
-    //       alert("Failed to fetch data: " + data.errorMessage);
-    //     } else {
-    //       console.log(data);
-    //       setTournament(data);
-    //     }
-    //   });
-    console.log(user?.team);
-  }, [params.name, user]);
+    if(!user || !user.team) {
+      router.push('/');
+      return;
+    }
+
+    fetch(`http://localhost:3000/api/tournament/${params.name}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errorMessage) {
+          console.error(data.errorMessage);
+        } else {
+          console.log(data);
+          setTournament(data);
+        }
+      });
+    
+  }, [params.name, user, router]);
 
   function playTournament() {
     setTournamentResults([]);
@@ -137,7 +146,8 @@ function Tournament({ params }: { params: { name: string } }) {
     return [myGoals, opponentGoals, outcome];
   }
   
-  //if(tournament === emptyTournament) return null;
+  if(tournament === emptyTournament) return null;
+  
   if(user) {
     if(user.team) {
       if(user.team.goalkeeper.length !== 1

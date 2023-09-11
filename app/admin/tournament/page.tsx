@@ -27,7 +27,6 @@ function TournamentMaker() {
       .then((data) => {
         if (data.errorMessage) {
           console.error("Failed to fetch data: " + data.errorMessage);
-          alert("Failed to fetch data: " + data.errorMessage);
         } else {
           setNations(data as Nation[]);
         }
