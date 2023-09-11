@@ -154,7 +154,7 @@ function Tournament({ params }: { params: { name: string } }) {
   
 
   return (
-    <div style={{display:'flex', flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center', border: '1px solid green'}}>
+    <div style={{display:'flex', flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
       <div style={{display:'flex', flex:1}}>
         <EmojiEvents sx={{marginTop:3}}/>
         <h1 style={{textDecoration:'none', marginLeft: 5, marginRight: 5}}>{tournament.name}</h1>
@@ -173,7 +173,7 @@ function Tournament({ params }: { params: { name: string } }) {
       <Button variant="contained" color="success" sx={{margin:3}} onClick={() => playTournament()}>
         Play
       </Button>
-      <div style={{display:'flex', flex:1, border: '1px solid red', minHeight: '200px', width:'100%', justifyContent:'space-evenly'}}>
+      <div style={{display:'flex', flex:1, minHeight: '200px', width:'100%', justifyContent:'space-evenly'}}>
         {tournamentResults}
       </div>
       {tournamentOutcome[0] ? 

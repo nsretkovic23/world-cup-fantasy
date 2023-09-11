@@ -22,28 +22,18 @@ function AdminPanel() {
           </Box>
           <Box sx={tileStyle}>
             <Link
-              href="/playersdashboard"
+              href="/admin/tournament"
               style={{ color: "white", textDecoration: "none" }}
             >
-              Special Offer Dashboard
-            </Link>
-          </Box>
-        </Box>
-        <Box sx={{ display: "flex" }}>
-          <Box sx={tileStyle}>
-            <Link
-              href="/playersdashboard"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Players Dashboard
+              Tournament Maker
             </Link>
           </Box>
           <Box sx={tileStyle}>
             <Link
-              href="/playersdashboard"
+              href="/admin/playersdashboard"
               style={{ color: "white", textDecoration: "none" }}
             >
-              Special Offer Dashboard
+              Cache dashboard
             </Link>
           </Box>
         </Box>
