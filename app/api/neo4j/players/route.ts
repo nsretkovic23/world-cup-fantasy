@@ -1,7 +1,19 @@
 import { Player, Position, User } from "@/lib/interfaces/db-data-Interfaces";
 import { session } from "@/lib/databases/neo4j";
 import { QueryResult, Record } from "neo4j-driver";
+import { NextRequest } from "next/server";
 
+export async function DELETE(request:NextRequest) {
+    let id = request.nextUrl.searchParams.get("id");
+
+    let deleteQuery = `MATCH (p:Player where ID(p)=${id}) detach delete p`;
+    try {
+       await session.run(deleteQuery);
+       return new Response(JSON.stringify({message:`Deleted player`}), {status:200});
+    } catch(error: any) {        
+        return new Response(JSON.stringify({errorMessage:error}), {status:400})
+    }
+}
 
 export async function POST(request: Request) {
     let player = await request.json() as Player;
@@ -45,11 +57,6 @@ export async function PUT(request:Request) {
     p.price = ${updatedPlayer.price},
     p.rating = ${updatedPlayer.rating}`;
     
-    // const attributes = ` SET p.name = '${updatedPlayer.name}',
-    // p.club = '${updatedPlayer.club}',
-    // p.price = ${updatedPlayer.price},
-    // p.rating = ${updatedPlayer.rating} `;
-    
     // Since position is separate node, if position is changed, two-way relations between player and position node need to be disconnected
     // And new relations should be created
     let isPositionChanged = player.position.position !== updatedPlayer.position.position;
@@ -86,7 +93,4 @@ export async function PUT(request:Request) {
     } catch(err) {
             return new Response(JSON.stringify({errorMessage:err}), {status:400});
     }
-    
-
-
 }
