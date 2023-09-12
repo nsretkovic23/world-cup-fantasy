@@ -13,6 +13,8 @@ import React, { useEffect, useState } from "react";
 import { Search, DeleteForever, Edit, Add } from "@mui/icons-material";
 import CreateOrEditPlayerPopUp from "../(components)/create-player";
 
+
+
 function AdminPlayersDashboard() {
   const [nations, setNations] = useState<Nation[]>([]);
   const [selectedNation, setSelectedNation] = useState<string>("");
@@ -21,16 +23,36 @@ function AdminPlayersDashboard() {
   const [playerForEditing, setPlayerForEditing] = useState<Player|undefined>(undefined);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/neo4j/nations/`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.errorMessage) {
-          console.error("Failed to fetch data: " + data.errorMessage);
-          alert("Failed to fetch data: " + data.errorMessage);
+    const fetchData = async () => {
+      let retrievedFromCache = false;
+  
+      const cacheResponse = await fetch(`http://localhost:3000/api/redis/nations`);
+      const cacheData = await cacheResponse.json();
+  
+      if (!cacheData.errorMessage) {
+        console.log("Data retrieved from Redis");
+        console.log(cacheData);
+        setNations(cacheData as Nation[]);
+        retrievedFromCache = true;
+      } else {
+        console.error("redis: " + cacheData.errorMessage);
+      }
+  
+      // Query Neo4j if there are no nations in cache
+      if (!retrievedFromCache) {
+        const neo4jResponse = await fetch(`http://localhost:3000/api/neo4j/nations/`);
+        const neo4jData = await neo4jResponse.json();
+  
+        if (!neo4jData.errorMessage) {
+          console.log("Data retrieved from Neo4j");
+          setNations(neo4jData as Nation[]);
         } else {
-          setNations(data as Nation[]);
+          console.error("Failed to fetch data from Neo4j: " + neo4jData.errorMessage);
         }
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
 
   // Storing nations only as strings (their names) so that I can sort them here alphabetically, because in nations state they are not sorted
@@ -44,6 +66,21 @@ function AdminPlayersDashboard() {
     );
     nationOptions.push(nationItem);
   });
+
+  const deletePlayer = (id:any) => {
+    fetch(`http://localhost:3000/api/neo4j/players?id=${id}`, {
+        method: 'DELETE',
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if(data.errorMessage) {
+            console.error("Failed to delete player: " + data.errorMessage);
+            alert("Failed to delete player: " + data.errorMessage);
+        } else {
+          fetchPlayers();
+        }
+      })
+  }
 
   const playerList: Array<JSX.Element> = players.map((player) => (
     <li
@@ -60,7 +97,7 @@ function AdminPlayersDashboard() {
         padding: "5px",
       }}
     >
-      <span style={{ width: "350px", border: "1px solid red" }}>
+      <span style={{ width: "350px"}}>
         {player.name}
       </span>
       <span style={{ width: "50px" }}>id:{player.id}</span>
@@ -83,10 +120,10 @@ function AdminPlayersDashboard() {
           Edit
         </Button>
         <Button
-          variant="contained"
           onClick={() => {
-            
+            deletePlayer(player.id);
           }}   
+          variant="contained"
           startIcon={<DeleteForever />}
         >
           {" "}

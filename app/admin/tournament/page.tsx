@@ -22,16 +22,38 @@ function TournamentMaker() {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/neo4j/nations/`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.errorMessage) {
-          console.error("Failed to fetch data: " + data.errorMessage);
+    const fetchData = async () => {
+      let retrievedFromCache = false;
+  
+      const cacheResponse = await fetch(`http://localhost:3000/api/redis/nations`);
+      const cacheData = await cacheResponse.json();
+  
+      if (!cacheData.errorMessage) {
+        console.log("Data retrieved from Redis");
+        console.log(cacheData);
+        setNations(cacheData as Nation[]);
+        retrievedFromCache = true;
+      } else {
+        console.error("redis: " + cacheData.errorMessage);
+      }
+  
+      // Query Neo4j if there are no nations in cache
+      if (!retrievedFromCache) {
+        const neo4jResponse = await fetch(`http://localhost:3000/api/neo4j/nations/`);
+        const neo4jData = await neo4jResponse.json();
+  
+        if (!neo4jData.errorMessage) {
+          console.log("Data retrieved from Neo4j");
+          setNations(neo4jData as Nation[]);
         } else {
-          setNations(data as Nation[]);
+          console.error("Failed to fetch data from Neo4j: " + neo4jData.errorMessage);
         }
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
+  
 
   const createTournament = () => {
     if(quarterfinalNation === "" || semifinalNation === "" || finalNation === ""
