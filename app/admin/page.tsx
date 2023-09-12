@@ -30,7 +30,7 @@ function AdminPanel() {
           </Box>
           <Box sx={tileStyle}>
             <Link
-              href="/admin/playersdashboard"
+              href="/admin/cachedashboard"
               style={{ color: "white", textDecoration: "none" }}
             >
               Cache dashboard
