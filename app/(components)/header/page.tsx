@@ -26,7 +26,8 @@ function Header() {
     null
   );
   const [tournamentAvailable, setTournamentAvailable] = useState<boolean>(false);
-  const [tournamentName, setTournamentName] = useState<string>("nicoo");
+  const [tournamentName, setTournamentName] = useState<string>("");
+  const [seconds, setSeconds] = useState<number>(0);
 
   const settingsMap = useMemo(() => {
     const map = new Map();
@@ -40,6 +41,27 @@ function Header() {
     });
     return map;
   }, [router, user, logoutUser]);
+  
+  // Tournament button timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (seconds <= 0) {
+        clearInterval(timer);
+        return;
+      }
+
+      setSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [seconds]);
+
+  const formatTime = (time:any) => {
+    const hours = String(Math.floor(time / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
+    const secs = String(time % 60).padStart(2, '0');
+    return `${hours}:${minutes}:${secs}`;
+  };
 
   // Showing button for playing tournaments when tournament gets created
   useEffect(() => {
@@ -59,10 +81,11 @@ function Header() {
 
             console.log("New tournament available...enabling button");
             setTournamentName(msg.name);
+            setSeconds(msg.ttl);
             setTournamentAvailable(true);
           } else if(msg.type === "TournamentExpired") {
-            
             console.log("Tournament expired, disabling button");
+            setSeconds(0);
             setTournamentName("");
             setTournamentAvailable(false);
           }
@@ -132,9 +155,9 @@ function Header() {
 
           {/*Adding space between logo and user picture/settings on md and higher*/}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}></Box>
-            {tournamentAvailable ? 
+            {/* {tournamentAvailable ?  */ seconds > 0 ?
             <Button variant="contained" sx={{marginRight:50, alignSelf:'center'}} color="error" startIcon={<EmojiEvents/>}>
-              <Link href={`/tournament/${tournamentName}`} style={{textDecoration:'none', color:'white'}}>Tournament</Link>
+              <Link href={`/tournament/${tournamentName}`} style={{textDecoration:'none', color:'white'}}>Tournament {formatTime(seconds)}</Link>
             </Button> 
           : null}
           
