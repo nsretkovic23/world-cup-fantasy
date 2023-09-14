@@ -1,36 +1,56 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## World Cup Fantasy
 
-First, run the development server:
+Web aplikacija se sastoji iz 2 projekta. 
+1. NextJs - full stack projekat
+2. socket-express - express server koji koristi socket.io za komunikaciju sa frontendom preko redis pub/sub-a
+
+Pokretanje - prvo pokrenuti socket, zatim nextjs aplikaciju:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+prvo: 
+world-cup-fantasy > npm install
+zatim:
+world-cup-fantasy/socket-express > npm install
+
+Pokretanje socketa:
+world-cup-fantasy/socket-express > npm start - port treba biti 8080
+
+Pokretanje same aplikacije:
+world-cup-fantasy > npm run dev - port treba biti 3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Otvoriti [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API routes
+U Nextu se rutiranje radi pomocu foldera, tako da se zapravi u api folderu nalazi backend aplikacije, par primera:
+```
+Folderi: app/api/users/route.ts - API endpoint je: localhost:3000/api/users
+Folderi: app/api/users/[id]/route.ts - API endpoint je: localhost:3000/api/users/{USERID}
+Folderi: app/api/users/[...credentials]/route.ts - API endpoint je: localhost:3000/api/users/{USERID}/{USERPASSWORD}
+```
+Ovo takodje vazi i za frontend, s tim sto je frontend sve sto je van api foldera.
+Ukoliko se neke komponente nalaze u folderu (imeFoldera), ta putanja se ignorise.
+Recimo ukoliko postoji:
+```
+app/(components)/header/page.tsx - Ne postoji endpoint na frontu za tu putanju
+```
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Funkcionalnost
+Prvo je potrebno ulogovati se ili napraviti nalog.
+Test nalog: username:nsretkovic2 password: nikola
+Nakon toga se na pocetnoj strani otvara fudbalski teren.
+Klikom na karticu, u zavisnosti od pozicije, sa strane se preko relacija pribavljaju igraci koji mogu igrati tu poziciju. Postoje 4 pozicije: Goalkeeper, Defender, Midfielder i Striker
+Pomocu neo4j relacija se igraci mogu filtrirati po ratingu, naciji i ceni, dok je pozicija staticka i zavisi od toga na koju karticu je kliknuto.
+### Admin dashboard
+Radi demonstracije, svaki korisnik moze otvoriti Admin Panel klikom na dugme na headeru. Tamo moze izabrati Player Dashboard, Tournament Maker, Cache Dashboard
+####Players Dashboard
+Ovde je moguce po naciji pretrazivati igrace, a zatim ili kreirati novog igraca za izabranu naciju ili menjati/brisati pronadjene igrace.
+####Tournament Maker
+Ovde je moguce kreirati Limited Time turnir. 
+Kada se turnir kreira, na headeru se pojavljuje dugme koje vodi na turnir. Na dugmetu je timer koji odbrojava preostalo vreme za odigravanje turnira. Zamisljeno je da korisnik bude u aplikaciji i da kada admin kreira turnir, on instant dobije dugme na headeru. Neke informacije o turniru se kesiraju na express serveru tako da, ukoliko korisnik nije u tom trenutku u aplikaciji, kada se kasnije prikljuci, ako vreme nije isteklo, socket salje poruku o turniru sa preostalim vremenom.
+Odigravanje turnira je, radi demonstracije, prosto generisanje rezultata na osnovu prosecnog rejtinga sastavljenog tima.
+####Cache dashboard 
+Posto se nacije koje su ucestvovale na svetskom prvenstvu u Kataru staticne-ne menjaju se, one su kesirane na redisu. Bilo gde imamo filter pomocu nacija, prvo se pokusa citanje iz cache-a (redisa), a zatim kao fallback se kontaktira neo4j.
+U samom cache dashboardu imamo 3 dugmeta, Get Cache - koje vraca kesirane nacije (ukoliko ih ima). Revalidate cache - uzima sve nacije iz neo4j-a i kesira ih u redis. Delete Cache - brisanje.
