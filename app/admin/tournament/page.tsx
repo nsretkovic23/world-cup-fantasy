@@ -26,15 +26,15 @@ function TournamentMaker() {
       let retrievedFromCache = false;
   
       const cacheResponse = await fetch(`http://localhost:3000/api/redis/nations`);
-      const cacheData = await cacheResponse.json();
   
-      if (!cacheData.errorMessage) {
+      if (!(cacheResponse.status === 404)) {
+        const cacheData = await cacheResponse.json();
         console.log("Data retrieved from Redis");
         console.log(cacheData);
         setNations(cacheData as Nation[]);
         retrievedFromCache = true;
       } else {
-        console.error("redis: " + cacheData.errorMessage);
+        console.error("Failed fetching nations from redis, trying neo4j...");
       }
   
       // Query Neo4j if there are no nations in cache
