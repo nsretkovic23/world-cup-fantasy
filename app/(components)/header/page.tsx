@@ -20,7 +20,6 @@ import io from 'socket.io-client';
 
 
 function Header() {
-  const router = useRouter();
   const { user, logoutUser } = useContext(UserContext) as UserContextType;
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(
     null
@@ -31,16 +30,12 @@ function Header() {
 
   const settingsMap = useMemo(() => {
     const map = new Map();
-    map.set("Profile", () => {
-      router.push(user ? "/user/" + user.id : "/");
-      setAnchorElUser(null);
-    });
     map.set("Logout", () => {
       setAnchorElUser(null);
       logoutUser();
     });
     return map;
-  }, [router, user, logoutUser]);
+  }, [logoutUser]);
   
   // Tournament button timer
   useEffect(() => {
